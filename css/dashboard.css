@@ -22,9 +22,13 @@ body{
 }
 
 .logo{
-   background-image: url("img/logo.png");
-   background-size: cover;
-   font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.logo img{
+    width: 105px;
+    height: auto;
+    display: block;
 }
 
 .menu a{
@@ -40,17 +44,11 @@ body{
     background:#161a20;
     color:#fff;
 }
-
-
-
 .main{
     margin-left:250px;
     width:100%;
     padding:30px;
 }
-
-
-
 .topbar{
     display:flex;
     justify-content:space-between;

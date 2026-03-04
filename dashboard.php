@@ -32,7 +32,9 @@ $usuarios = $sql4->fetch_assoc()['ativos'] ?? 0;
 <body>
 
 <div class="sidebar">
-    <div class="logo"></div>
+    <div class="logo">
+        <img src="img/logo.png" alt="logo">
+    </div>
 
     <div class="menu">
         <a href="#">Dashboard</a>
