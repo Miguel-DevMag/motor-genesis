@@ -7,28 +7,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $login = trim($_POST["login"]);
     $senha = trim($_POST["senha"]);
 
-    $sql = "SELECT * FROM usuarios WHERE email=? OR matricula=?";
+    $sql = "SELECT * FROM Usuarios 
+            WHERE (email=? OR matricula=?) 
+            AND ativo=TRUE";
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $login, $login);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
+
         $user = $result->fetch_assoc();
 
         if (password_verify($senha, $user["senha"])) {
-            $_SESSION["usuario"] = $user["nome"];
+
+            $_SESSION["id_usuario"] = $user["id_usuario"];
+            $_SESSION["login"] = $user["login"];
+            $_SESSION["nivel"] = $user["nivel_acesso"];
+
+            $update = $conn->prepare("UPDATE Usuarios SET ultimo_login=NOW() WHERE id_usuario=?");
+            $update->bind_param("i", $user["id_usuario"]);
+            $update->execute();
+
             header("Location: dashboard.php");
             exit;
+
         } else {
             echo "Senha incorreta!";
         }
+
     } else {
         echo "Usuário não encontrado!";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Entrar</button>
                 <br><br>
                 <a href="recuperar.php">Esqueci minha senha</a><br>
-                <a href="cadastro.php">Criar conta</a>
+                <a href="cadastro.php">Criar usuário</a>
             </form>
         </div>
     </div>
