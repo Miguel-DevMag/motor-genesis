@@ -45,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
     } else {
-        echo "Usuário não encontrado!";
+
+    echo "Usuário não encontrado!";
     }
 }
 ?>
