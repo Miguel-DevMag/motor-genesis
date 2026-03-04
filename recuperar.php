@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Redefinir Senha</button>
 
                 <div class="links">
-                    <a href="login.php">Voltar ao Login</a>
+                    <a href="index.php">Voltar ao Login</a>
                 </div>
 
             </form>
