@@ -32,7 +32,7 @@ $usuarios = $sql4->fetch_assoc()['ativos'] ?? 0;
 <body>
 
 <div class="sidebar">
-    <div class="logo">🚀 Motor Genesis</div>
+    <div class="logo"></div>
 
     <div class="menu">
         <a href="#">Dashboard</a>

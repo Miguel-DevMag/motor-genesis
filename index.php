@@ -6,7 +6,7 @@ if (isset($_SESSION["id_usuario"])) {
     header("Location: dashboard.php");
     exit;
 }
-
+ 
 include("conexao.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -61,14 +61,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="right">
         <div class="form-box">
-            <h2>Login</h2>
+            <h2 class="titulo">Login</h2>
             <form method="POST">
                 <input type="text" name="login" placeholder="Email ou Matrícula" required>
                 <input type="password" name="senha" placeholder="Senha" required>
                 <button type="submit">Entrar</button>
                 <br><br>
-                <a href="recuperar.php">Esqueci minha senha</a><br>
-                <a href="cadastro.php">Criar usuário</a>
+                <div class="link-paginas">
+
+                    <a href="recuperar.php">Esqueci minha senha</a>
+             
+                <div>
+                    <a href="cadastro.php">Criar usuário</a>
+                </div>
+                   </div>
             </form>
         </div>
     </div>
