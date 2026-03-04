@@ -1,5 +1,6 @@
 <?php
-include("proteger.php");
+// protegemos a rota usando o arquivo de segurança
+include("seguranca.php");
 include("conexao.php");
 
 /* DADOS DINÂMICOS DO BANCO */

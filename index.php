@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+// se já estiver logado, encaminha direto para o painel
+if (isset($_SESSION["id_usuario"])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
 include("conexao.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
