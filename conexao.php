@@ -1,5 +1,5 @@
-<?php
-$host = "localhost";
+<?php 
+$host = "localhost"; 
 $user = "root";
 $pass = "";
 $db = "montadora";
