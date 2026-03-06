@@ -38,9 +38,9 @@ $usuarios = $sql4->fetch_assoc()['ativos'] ?? 0;
 
     <div class="menu">
         <a href="#">Dashboard</a>
-        <a href="#">Estoque</a>
-        <a href="#">Produção</a>
-        <a href="#">Logística</a>
+        <a href="estoque.php">Estoque</a>
+        <a href="producao.php">Produção</a>
+        <a href="logistica.php">Logística</a>
         <a href="#">Orçamentos</a>
         <a href="#">Relatórios</a>
         <a href="#">Usuários</a>

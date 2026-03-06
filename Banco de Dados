@@ -48,3 +48,56 @@ CREATE TABLE Precos (
     valor DECIMAL(10,2) NOT NULL,
     moeda VARCHAR(20)
 );
+
+alter table Pecas
+ADD lote VARCHAR(50),
+ADD estoque_minimo INT DEFAULT 0,
+ADD unidade VARCHAR(20),
+ADD fornecedor VARCHAR(100),
+ADD localizacao VARCHAR(50),
+ADD descricao TEXT;
+
+CREATE TABLE Modelos (
+    id_modelo INT AUTO_INCREMENT PRIMARY KEY,
+    nome_modelo VARCHAR(100) UNIQUE NOT NULL,
+    codigo_modelo VARCHAR(50) UNIQUE,
+    ativo BOOLEAN DEFAULT TRUE,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE OrdensProducao (
+    id_op INT AUTO_INCREMENT PRIMARY KEY,
+    id_modelo INT NOT NULL,
+    quantidade INT NOT NULL,
+    cor VARCHAR(50),
+    prioridade VARCHAR(20) DEFAULT 'MEDIA',
+    observacoes TEXT,
+    status VARCHAR(20) DEFAULT 'PENDENTE',
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_inicio DATETIME NULL,
+    data_fim DATETIME NULL,
+    CONSTRAINT fk_op_modelo FOREIGN KEY (id_modelo) REFERENCES Modelos(id_modelo)
+);
+ALTER TABLE Precos
+ADD CONSTRAINT fk_precos_modelo FOREIGN KEY (id_modelo) REFERENCES Modelos(id_modelo);
+
+CREATE TABLE Transportadoras (
+    id_transportadora INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(150) NOT NULL,
+    cnpj VARCHAR(18) UNIQUE,
+    tipo VARCHAR(30), -- RODOVIARIO, AEREO, ETC
+    status VARCHAR(10) DEFAULT 'ATIVO',
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE Envios (
+    id_envio INT AUTO_INCREMENT PRIMARY KEY,
+    codigo_moto VARCHAR(50) NOT NULL,
+    tipo VARCHAR(10) NOT NULL, -- MOTO, PECAS
+    id_transportadora INT NOT NULL,
+    destino VARCHAR(150),
+    previsao_entrega DATE,
+    status VARCHAR(15) DEFAULT 'PENDENTE',
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_inicio DATETIME NULL,
+    data_fim DATETIME NULL,
+    CONSTRAINT fk_envio_transportadora FOREIGN KEY (id_transportadora) REFERENCES Transportadoras(id_transportadora)
+);
