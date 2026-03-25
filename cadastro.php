@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO Usuarios 
             (login, email, matricula, senha, nivel_acesso)
             VALUES (?, ?, ?, ?, ?)";
-
+ 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssss", $login, $email, $matricula, $senha, $nivel);
 
