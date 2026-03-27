@@ -7,16 +7,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = trim($_POST["email"]);
 
-    $novaSenha = password_hash("123456", PASSWORD_DEFAULT);
+    // Verificar se email existe
+    $sql_check = "SELECT id_usuario FROM Usuarios WHERE email=?";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bind_param("s", $email);
+    $stmt_check->execute();
+    $result = $stmt_check->get_result();
 
-    $sql = "UPDATE Usuarios SET senha=? WHERE email=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $novaSenha, $email);
+    if ($result->num_rows == 1) {
+        // Gerar nova senha aleatória
+        $novaSenha = bin2hex(random_bytes(4)); // 8 caracteres hex
+        $hash = password_hash($novaSenha, PASSWORD_DEFAULT);
 
-    if ($stmt->execute()) {
-        $msg = "<div class='success'>Senha redefinida para 123456. Altere após login.</div>";
+        $sql = "UPDATE Usuarios SET senha=? WHERE email=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $hash, $email);
+
+        if ($stmt->execute()) {
+            $msg = "<div class='success'>Nova senha gerada: <strong>$novaSenha</strong><br>Altere após login.</div>";
+        } else {
+            $msg = "<div class='error'>Erro ao redefinir senha.</div>";
+        }
     } else {
-        $msg = "<div class='error'>Erro ao redefinir senha.</div>";
+        $msg = "<div class='error'>Email não encontrado.</div>";
     }
 }
 ?>

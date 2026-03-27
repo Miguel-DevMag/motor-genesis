@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("seguranca.php");
 include("conexao.php");
 
 $sql = "SELECT * FROM Pecas ORDER BY id_peca DESC";
@@ -11,16 +11,36 @@ $resultado = $conn->query($sql);
 <head>
 <meta charset="UTF-8">
 <title>Estoque</title>
+<link rel="stylesheet" href="css/estoque.css">
 </head>
 
 <body>
 
-<div class="topbar">
-<input type="text" placeholder="Buscar peças...">
+<div class="sidebar">
+    <div class="logo">
+        <img src="img/logo.png" alt="logo">
+    </div>
 
-<div>
+    <div class="menu">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="#">Estoque</a>
+        <a href="producao.php">Produção</a>
+        <a href="logistica.php">Logística</a>
+        <a href="#">Orçamentos</a>
+        <a href="#">Relatórios</a>
+        <a href="#">Usuários</a>
+        <a href="logout.php">Sair</a>
+    </div>
+</div>
+
+<div class="main">
+
+<div class="topbar">
+<input type="text" class="search" placeholder="Buscar peças...">
+
+<div class="user">
 <?php echo $_SESSION["login"]; ?> |
-<span>● Sistema Online</span>
+<span class="status-online">● Sistema Online</span>
 </div>
 </div>
 
@@ -100,6 +120,8 @@ while($linha = $resultado->fetch_assoc()){
 ?>
 
 </table>
+
+</div>
 
 </body>
 </html>

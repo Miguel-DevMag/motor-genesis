@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 // se já estiver logado, encaminha direto para o painel
@@ -8,45 +8,49 @@ if (isset($_SESSION["id_usuario"])) {
 }
  
 include("conexao.php");
+$msg = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $login = trim($_POST["login"]);
     $senha = trim($_POST["senha"]);
 
-    $sql = "SELECT * FROM Usuarios 
-            WHERE (email=? OR matricula=?) 
-            AND ativo=TRUE";
+    if (empty($login) || empty($senha)) {
+        $msg = "<div class='error'>Preencha todos os campos.</div>";
+    } else {
+        $sql = "SELECT * FROM Usuarios 
+                WHERE (email=? OR matricula=?) 
+                AND ativo=TRUE";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $login, $login);
-    $stmt->execute();
-    $result = $stmt->get_result();
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $login, $login);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows == 1) {
+        if ($result->num_rows == 1) {
 
-        $user = $result->fetch_assoc();
+            $user = $result->fetch_assoc();
 
-        if (password_verify($senha, $user["senha"])) {
+            if (password_verify($senha, $user["senha"])) {
 
-            $_SESSION["id_usuario"] = $user["id_usuario"];
-            $_SESSION["login"] = $user["login"];
-            $_SESSION["nivel"] = $user["nivel_acesso"];
+                $_SESSION["id_usuario"] = $user["id_usuario"];
+                $_SESSION["login"] = $user["login"];
+                $_SESSION["nivel"] = $user["nivel_acesso"];
 
-            $update = $conn->prepare("UPDATE Usuarios SET ultimo_login=NOW() WHERE id_usuario=?");
-            $update->bind_param("i", $user["id_usuario"]);
-            $update->execute();
+                $update = $conn->prepare("UPDATE Usuarios SET ultimo_login=NOW() WHERE id_usuario=?");
+                $update->bind_param("i", $user["id_usuario"]);
+                $update->execute();
 
-            header("Location: dashboard.php");
-            exit;
+                header("Location: dashboard.php");
+                exit;
+
+            } else {
+                $msg = "<div class='error'>Senha incorreta!</div>";
+            }
 
         } else {
-            echo "Senha incorreta!";
+            $msg = "<div class='error'>Usuário não encontrado!</div>";
         }
-
-    } else {
-
-    echo "Usuário não encontrado!";
     }
 }
 ?>
@@ -63,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="right">
         <div class="form-box">
             <h2 class="titulo">Login</h2>
+            <?php echo $msg; ?>
             <form method="POST">
                 <input type="text" name="login" placeholder="Email ou Matrícula" required>
                 <input type="password" name="senha" placeholder="Senha" required>

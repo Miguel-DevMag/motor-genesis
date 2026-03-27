@@ -101,8 +101,29 @@ $entregues = $conn->query("
 <head>
 <meta charset="UTF-8">
 <title>Logística</title>
+<link rel="stylesheet" href="css/logistica.css">
 </head>
 <body>
+
+<div class="sidebar">
+    <div class="logo">
+        <img src="img/logo.png" alt="logo">
+    </div>
+
+    <div class="menu">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="estoque.php">Estoque</a>
+        <a href="producao.php">Produção</a>
+        <a href="#">Logística</a>
+        <a href="#">Orçamentos</a>
+        <a href="#">Relatórios</a>
+        <a href="#">Usuários</a>
+        <a href="logout.php">Sair</a>
+    </div>
+</div>
+
+<div class="main">
+
 <h1>Logística</h1>
 
 <?php if ($msg !== "") { ?>
@@ -275,5 +296,6 @@ $entregues = $conn->query("
     </tr>
     <?php } ?>
 </table>
+</div>
 </body>
 </html>

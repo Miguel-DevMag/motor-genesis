@@ -2,26 +2,31 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body{
     height:100vh;
     display:flex;
+    background: linear-gradient(135deg, #0f1115 0%, #1a1d23 100%);
 }
-.titulo {
-    text-align: center;
-    font-size: 35px;
-}
+
 .container{
-    display:flex; 
+    display:flex;
     width:100%;
 }
 
 .left{
     width:50%;
-    background:url('../imagens/moto.jpg') no-repeat center;
-    background-size:cover;
+    background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:48px;
+    font-weight:700;
+    text-align:center;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .right{
@@ -34,34 +39,58 @@ body{
 
 .form-box{
     width:80%;
-    max-width:400px;
-    background:#1e1e1e;
+    max-width:450px;
+    background: linear-gradient(135deg, #161a20 0%, #1e2329 100%);
     padding:40px;
-    border-radius:10px;
+    border-radius:15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    border:1px solid #333;
 }
 
 .form-box h2{
     color:#fff;
-    margin-bottom:20px;
+    margin-bottom:30px;
+    text-align:center;
+    font-size:28px;
+    font-weight:700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-input, select{
+input{
     width:100%;
-    padding:12px;
+    padding:12px 15px;
     margin-bottom:15px;
-    border-radius:5px;
-    border:none;
+    border-radius:10px;
+    border:1px solid #444;
+    background:#222;
+    color:#fff;
+    font-size:14px;
+    outline:none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus{
+    border-color:#2962ff;
+    box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.2);
 }
 
 button{
     width:100%;
-    padding:12px;
-    background:#ff3c00;
+    padding:15px;
+    background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
     border:none;
     color:#fff;
     cursor:pointer;
-    border-radius:5px;
-    font-weight:bold;
+    border-radius:10px;
+    font-weight:600;
+    font-size:16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom:20px;
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(41, 98, 255, 0.4);
 }
 
 .link-paginas{
@@ -69,8 +98,43 @@ button{
     justify-content: space-between;
     align-items: center;
 }
-.link-paginas a {
-    color:#ff3c00;
-    text-decoration:none;
-    font-size:14px;
+
+.link-paginas a:hover{
+    color:#1e4bd8;
+}
+
+.success{
+    background:#00c853;
+    color:#fff;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+.error{
+    background:#e10600;
+    color:#fff;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container{
+        flex-direction:column;
+    }
+    .left, .right{
+        width:100%;
+        height:50vh;
+    }
+    .left{
+        font-size:36px;
+    }
+    .link-paginas{
+        flex-direction:column;
+        gap:10px;
+    }
 }
