@@ -35,40 +35,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Recuperar Senha - Montadora</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - Motor Genesis</title>
     <link rel="stylesheet" href="css/senha.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
+<div class="form-box">
+    <h2><i class="fas fa-key"></i> Recuperar Senha</h2>
 
-    <div class="left"></div>
+    <?php echo $msg; ?>
 
-    <div class="right">
-        <div class="form-box">
-            <h2>Recuperar Senha</h2>
+    <form method="POST">
 
-            <?php echo $msg; ?>
-
-            <form method="POST">
-
-                <div class="form-group">
-                    <label>Email Cadastrado</label>
-                    <input type="email" name="email" required>
-                </div>
-
-                <button type="submit">Redefinir Senha</button>
-
-                <div class="links">
-                    <a href="index.php">Voltar ao Login</a>
-                </div>
-
-            </form>
+        <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email Cadastrado</label>
+            <input type="email" name="email" placeholder="seu@email.com" required>
         </div>
-    </div>
 
+        <button type="submit"><i class="fas fa-redo"></i> Redefinir Senha</button>
+
+        <div class="links">
+            <a href="index.php"><i class="fas fa-arrow-left"></i> Voltar ao Login</a>
+        </div>
+
+    </form>
 </div>
 
 </body>

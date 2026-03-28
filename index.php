@@ -6,7 +6,7 @@ if (isset($_SESSION["id_usuario"])) {
     header("Location: dashboard.php");
     exit;
 }
- 
+  
 include("conexao.php");
 $msg = "";
 
@@ -55,32 +55,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Login - Montadora</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Motor Genesis</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <div class="container">
-    <div class="left"></div>
+    <div class="left">
+        <div>
+            <h1><i class="fas fa-motorcycle"></i> Motor Genesis</h1>
+            <p>Sistema de Gerenciamento de Estoque</p>
+        </div>
+    </div>
 
     <div class="right">
         <div class="form-box">
-            <h2 class="titulo">Login</h2>
+            <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
             <?php echo $msg; ?>
             <form method="POST">
-                <input type="text" name="login" placeholder="Email ou Matrícula" required>
-                <input type="password" name="senha" placeholder="Senha" required>
-                <button type="submit">Entrar</button>
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Email ou Matrícula</label>
+                    <input type="text" name="login" placeholder="seu@email.com ou matrícula" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" name="senha" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit"><i class="fas fa-arrow-right"></i> Entrar</button>
                 <br><br>
                 <div class="link-paginas">
-
-                    <a href="recuperar.php">Esqueci minha senha</a>
-             
-                <div>
-                    <a href="cadastro.php">Criar usuário</a>
+                    <a href="recuperar.php"><i class="fas fa-key"></i> Esqueci minha senha</a>
+                    <a href="cadastro.php"><i class="fas fa-user-plus"></i> Criar usuário</a>
                 </div>
-                   </div>
             </form>
         </div>
     </div>

@@ -5,21 +5,33 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+    --primary: #2962ff;
+    --primary-dark: #1e4bd8;
+    --bg-dark: #0f1115;
+    --danger: #e10600;
+    --success: #00c853;
+    --text-gray: #9aa4b2;
+}
+
 body{
     height:100vh;
     display:flex;
-    background: linear-gradient(135deg, #0f1115 0%, #1a1d23 100%);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1d23 100%);
+    color:#fff;
 }
 
 .container{
     display:flex;
     width:100%;
+    min-height:100vh;
 }
 
 .left{
     width:50%;
-    background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     display:flex;
+    flex-direction: column;
     justify-content:center;
     align-items:center;
     color:#fff;
@@ -27,6 +39,18 @@ body{
     font-weight:700;
     text-align:center;
     text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    padding:40px;
+}
+
+.left h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.left p {
+    font-size: 18px;
+    opacity: 0.95;
+    font-weight: 300;
 }
 
 .right{
@@ -34,7 +58,8 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#111;
+    background:linear-gradient(135deg, #0f1115 0%, #111820 100%);
+    padding: 40px;
 }
 
 .form-box{
@@ -62,7 +87,7 @@ body{
 
 .form-group label{
     display:block;
-    color:#9aa4b2;
+    color: var(--text-gray);
     font-size:14px;
     margin-bottom:8px;
     font-weight:500;
@@ -81,14 +106,14 @@ input, select{
 }
 
 input:focus, select:focus{
-    border-color:#2962ff;
+    border-color:var(--primary);
     box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.2);
 }
 
 button{
     width:100%;
     padding:15px;
-    background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     border:none;
     color:#fff;
     cursor:pointer;
@@ -97,6 +122,76 @@ button{
     font-size:16px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin-bottom:20px;
+}
+
+button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(41, 98, 255, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.links{
+    text-align:center;
+}
+
+.links a{
+    color: var(--primary);
+    text-decoration:none;
+    font-weight:500;
+    transition: color 0.3s ease;
+    display: block;
+    margin-top: 10px;
+}
+
+.links a:hover{
+    color:var(--primary-dark);
+    text-decoration: underline;
+}
+
+.success{
+    background: rgba(0, 200, 83, 0.15);
+    color: var(--success);
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    text-align:center;
+    border-left: 4px solid var(--success);
+    font-weight: 500;
+}
+
+.error{
+    background: rgba(225, 6, 0, 0.15);
+    color: var(--danger);
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    text-align:center;
+    border-left: 4px solid var(--danger);
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container{
+        flex-direction:column;
+    }
+    .left, .right{
+        width:100%;
+    }
+    .left{
+        font-size:32px;
+        min-height: 30vh;
+    }
+    .right {
+        min-height: 70vh;
+        padding: 20px;
+    }
+    .form-box {
+        width: 100%;
+    }
 }
 
 button:hover{

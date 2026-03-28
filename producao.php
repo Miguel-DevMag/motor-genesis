@@ -83,165 +83,204 @@ $finalizadas = $conn->query("
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Produção</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produção - Motor Genesis</title>
 <link rel="stylesheet" href="css/producao.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <div class="sidebar">
     <div class="logo">
-        <img src="img/logo.png" alt="logo">
+        <img src="img/logo.png" alt="Motor Genesis">
+        <h3>Motor Genesis</h3>
     </div>
 
     <div class="menu">
-        <a href="dashboard.php">Dashboard</a>
-        <a href="estoque.php">Estoque</a>
-        <a href="#">Produção</a>
-        <a href="logistica.php">Logística</a>
-        <a href="#">Orçamentos</a>
-        <a href="#">Relatórios</a>
-        <a href="#">Usuários</a>
-        <a href="logout.php">Sair</a>
+        <a href="dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="estoque.php"><i class="fas fa-boxes"></i> Estoque</a>
+        <a href="producao.php" class="active"><i class="fas fa-industry"></i> Produção</a>
+        <a href="logistica.php"><i class="fas fa-truck"></i> Logística</a>
+        <a href="#"><i class="fas fa-file-invoice"></i> Orçamentos</a>
+        <a href="#"><i class="fas fa-chart-bar"></i> Relatórios</a>
+        <a href="#"><i class="fas fa-users"></i> Usuários</a>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Sair</a>
     </div>
 </div>
 
 <div class="main">
 
-<h1>Produção</h1>
+<h1><i class="fas fa-industry"></i> Produção</h1>
 
 <?php if ($msg !== "") { ?>
-    <div><?php echo htmlspecialchars($msg); ?></div>
+    <div class="success"><i class="fas fa-check-circle"></i> <?php echo htmlspecialchars($msg); ?></div>
 <?php } ?>
 
-<form method="GET" style="display:inline">
-    <button type="submit" name="nova" value="modelo">+ Cadastrar Modelo</button>
-    <button type="submit" name="nova" value="op">+ Nova OP</button>
-    <?php if (isset($_GET["nova"])) { ?>
-        <a href="producao.php">Ocultar</a>
-    <?php } ?>
-    </form>
+<div>
+    <button onclick="toggleForm('modelo')"><i class="fas fa-plus"></i> Cadastrar Modelo</button>
+    <button onclick="toggleForm('op')"><i class="fas fa-plus"></i> Nova OP</button>
+</div>
 
 <?php if (isset($_GET["nova"]) && $_GET["nova"] === "modelo") { ?>
-    <h2>Cadastrar Modelo</h2>
-    <form method="POST">
+    <h2><i class="fas fa-cube"></i> Cadastrar Modelo</h2>
+    <form method="POST" class="show">
         <input type="hidden" name="acao" value="cadastrar_modelo">
-        <input type="text" name="nome_modelo" placeholder="Nome do Modelo" required>
-        <input type="text" name="codigo_modelo" placeholder="Código (opcional)">
-        <button type="submit">Salvar Modelo</button>
+        <div class="form-group">
+            <label><i class="fas fa-tag"></i> Nome do Modelo</label>
+            <input type="text" name="nome_modelo" placeholder="Nome do modelo" required>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-barcode"></i> Código (Opcional)</label>
+            <input type="text" name="codigo_modelo" placeholder="Código">
+        </div>
+        <button type="submit"><i class="fas fa-check"></i> Salvar Modelo</button>
+        <a href="producao.php"><i class="fas fa-times"></i> Cancelar</a>
     </form>
 <?php } ?>
 
 <?php if (isset($_GET["nova"]) && $_GET["nova"] === "op") { ?>
-    <h2>Nova OP</h2>
-    <form method="POST">
+    <h2><i class="fas fa-list"></i> Nova OP</h2>
+    <form method="POST" class="show">
         <input type="hidden" name="acao" value="cadastrar_op">
-        <label>Modelo</label>
-        <select name="id_modelo" required>
-            <option value="">Selecione</option>
-            <?php while($m = $modelos->fetch_assoc()){ ?>
-                <option value="<?php echo $m["id_modelo"]; ?>">
-                    <?php echo htmlspecialchars($m["nome_modelo"]); ?>
-                </option>
-            <?php } ?>
-        </select>
-        <label>Quantidade</label>
-        <input type="number" name="quantidade" min="1" required>
-        <label>Cor</label>
-        <input type="text" name="cor" placeholder="Cor">
-        <label>Prioridade</label>
-        <select name="prioridade">
-            <option value="ALTA">ALTA</option>
-            <option value="MEDIA" selected>MEDIA</option>
-            <option value="BAIXA">BAIXA</option>
-        </select>
-        <label>Observações</label>
-        <textarea name="observacoes" rows="3"></textarea>
-        <button type="submit">Criar OP</button>
+        <div class="form-group">
+            <label><i class="fas fa-cube"></i> Modelo</label>
+            <select name="id_modelo" required>
+                <option value="">-- Selecione --</option>
+                <?php $modelos->data_seek(0); while($m = $modelos->fetch_assoc()){ ?>
+                    <option value="<?php echo $m["id_modelo"]; ?>">
+                        <?php echo htmlspecialchars($m["nome_modelo"]); ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-boxes"></i> Quantidade</label>
+            <input type="number" name="quantidade" min="1" placeholder="0" required>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-palette"></i> Cor</label>
+            <input type="text" name="cor" placeholder="Cor da moto">
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-flag"></i> Prioridade</label>
+            <select name="prioridade">
+                <option value="ALTA">ALTA</option>
+                <option value="MEDIA" selected>MÉDIA</option>
+                <option value="BAIXA">BAIXA</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-file-alt"></i> Observações</label>
+            <textarea name="observacoes" placeholder="Observações adicionais"></textarea>
+        </div>
+        <button type="submit"><i class="fas fa-check"></i> Criar OP</button>
+        <a href="producao.php"><i class="fas fa-times"></i> Cancelar</a>
     </form>
 <?php } ?>
 
-<h2>Modelos cadastrados</h2>
-<table border="1" cellpadding="6" cellspacing="0">
+<h2><i class="fas fa-list-ol"></i> Modelos cadastrados</h2>
+<table>
+    <thead>
     <tr>
         <th>ID</th>
         <th>Nome</th>
         <th>Código</th>
-        <th>Ativo</th>
-        <th>Criado em</th>
+        <th>Status</th>
+        <th>Data de Criação</th>
     </tr>
+    </thead>
+    <tbody>
     <?php while($lm = $modelosLista->fetch_assoc()){ ?>
         <tr>
             <td><?php echo $lm["id_modelo"]; ?></td>
             <td><?php echo htmlspecialchars($lm["nome_modelo"]); ?></td>
             <td><?php echo htmlspecialchars($lm["codigo_modelo"]); ?></td>
-            <td><?php echo ($lm["ativo"] ? "Sim" : "Não"); ?></td>
-            <td><?php echo $lm["criado_em"]; ?></td>
+            <td><span class="status-badge <?php echo $lm["ativo"] ? 'status-active' : 'status-inactive'; ?>"><?php echo ($lm["ativo"] ? "Ativo" : "Inativo"); ?></span></td>
+            <td><?php echo date('d/m/Y', strtotime($lm["criado_em"])); ?></td>
         </tr>
     <?php } ?>
+    </tbody>
 </table>
 
-<h2>Em Produção</h2>
-<table border="1" cellpadding="6" cellspacing="0">
+<h2><i class="fas fa-cogs"></i> Em Produção</h2>
+<table>
+    <thead>
     <tr>
         <th>ID</th>
         <th>Modelo</th>
-        <th>Qtd</th>
+        <th>Quantidade</th>
         <th>Cor</th>
         <th>Prioridade</th>
         <th>Status</th>
+        <th>Data Criação</th>
         <th>Ações</th>
     </tr>
+    </thead>
+    <tbody>
     <?php while($op = $emProducao->fetch_assoc()){ ?>
         <tr>
             <td><?php echo $op["id_op"]; ?></td>
             <td><?php echo htmlspecialchars($op["nome_modelo"]); ?></td>
             <td><?php echo $op["quantidade"]; ?></td>
             <td><?php echo htmlspecialchars($op["cor"]); ?></td>
-            <td><?php echo htmlspecialchars($op["prioridade"]); ?></td>
-            <td><?php echo htmlspecialchars($op["status"]); ?></td>
+            <td><span class="status-badge"><?php echo htmlspecialchars($op["prioridade"]); ?></span></td>
+            <td><span class="status-badge status-pending"><?php echo htmlspecialchars($op["status"]); ?></span></td>
+            <td><?php echo date('d/m/Y', strtotime($op["data_criacao"])); ?></td>
             <td>
                 <?php if ($op["status"] === "PENDENTE") { ?>
                     <form method="POST" style="display:inline">
                         <input type="hidden" name="acao" value="iniciar_op">
                         <input type="hidden" name="id_op" value="<?php echo $op["id_op"]; ?>">
-                        <button type="submit">Iniciar</button>
+                        <button type="submit" class="btn-success"><i class="fas fa-play"></i> Iniciar</button>
                     </form>
                 <?php } ?>
                 <?php if ($op["status"] === "INICIADA") { ?>
                     <form method="POST" style="display:inline">
                         <input type="hidden" name="acao" value="finalizar_op">
                         <input type="hidden" name="id_op" value="<?php echo $op["id_op"]; ?>">
-                        <button type="submit">Finalizar</button>
+                        <button type="submit" class="btn-success"><i class="fas fa-check"></i> Finalizar</button>
                     </form>
                 <?php } ?>
             </td>
         </tr>
     <?php } ?>
+    </tbody>
 </table>
 
-<h2>Finalizadas</h2>
-<table border="1" cellpadding="6" cellspacing="0">
+<h2><i class="fas fa-check-circle"></i> Finalizadas</h2>
+<table>
+    <thead>
     <tr>
         <th>ID</th>
         <th>Modelo</th>
-        <th>Qtd</th>
+        <th>Quantidade</th>
         <th>Cor</th>
         <th>Prioridade</th>
         <th>Início</th>
-        <th>Fim</th>
+        <th>Finalização</th>
     </tr>
+    </thead>
+    <tbody>
     <?php while($op = $finalizadas->fetch_assoc()){ ?>
         <tr>
             <td><?php echo $op["id_op"]; ?></td>
             <td><?php echo htmlspecialchars($op["nome_modelo"]); ?></td>
             <td><?php echo $op["quantidade"]; ?></td>
             <td><?php echo htmlspecialchars($op["cor"]); ?></td>
-            <td><?php echo htmlspecialchars($op["prioridade"]); ?></td>
-            <td><?php echo $op["data_inicio"]; ?></td>
-            <td><?php echo $op["data_fim"]; ?></td>
+            <td><span class="status-badge"><?php echo htmlspecialchars($op["prioridade"]); ?></span></td>
+            <td><?php echo date('d/m/Y H:i', strtotime($op["data_inicio"])); ?></td>
+            <td><?php echo date('d/m/Y H:i', strtotime($op["data_fim"])); ?></td>
         </tr>
     <?php } ?>
+    </tbody>
 </table>
 </div>
+
+<script>
+function toggleForm(type) {
+    window.location.href = 'producao.php?nova=' + type;
+}
+</script>
+
 </body>
 </html>
