@@ -29,7 +29,7 @@ $usuarios = $sql4->fetch_assoc()['ativos'] ?? 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Genesis - Dashboard</title>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/tema.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -45,9 +45,9 @@ $usuarios = $sql4->fetch_assoc()['ativos'] ?? 0;
         <a href="estoque.php"><i class="fas fa-boxes"></i> Estoque</a>
         <a href="producao.php"><i class="fas fa-industry"></i> Produção</a>
         <a href="logistica.php"><i class="fas fa-truck"></i> Logística</a>
-        <a href="#"><i class="fas fa-file-invoice"></i> Orçamentos</a>
-        <a href="#"><i class="fas fa-chart-bar"></i> Relatórios</a>
-        <a href="#"><i class="fas fa-users"></i> Usuários</a>
+        <a href="orcamentos.php"><i class="fas fa-file-invoice"></i> Orçamentos</a>
+        <a href="relatorios.php"><i class="fas fa-chart-bar"></i> Relatórios</a>
+        <a href="usuarios.php"><i class="fas fa-users"></i> Usuários</a>
         <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Sair</a>
     </div>
 </div>
